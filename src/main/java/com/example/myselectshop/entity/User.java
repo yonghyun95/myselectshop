@@ -1,5 +1,6 @@
 package com.example.myselectshop.entity;
 
+import com.example.myselectshop.entity.UserRoleEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
