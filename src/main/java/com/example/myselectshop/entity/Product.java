@@ -1,16 +1,17 @@
 package com.example.myselectshop.entity;
 
+
 import com.example.myselectshop.dto.ProductMypriceRequestDto;
 import com.example.myselectshop.dto.ProductRequestDto;
 import com.example.myselectshop.naver.dto.ItemDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
-@Setter
 @Entity // DB 테이블 역할을 합니다.
 @NoArgsConstructor
 public class Product extends Timestamped {
@@ -37,6 +38,12 @@ public class Product extends Timestamped {
     @Column(nullable = false)
     private Long userId;
 
+    // 다대다 관계를 표현하며, 중간 테이블을 생성해서 두 엔티티 간의 관계를 유지해준다.
+    // 오로지 Mapping 테이블만 가능하고,추가를 못한다. 쿼리들이 자동으로 JPA에서 나갈수 있다.
+    // 현재는 단방향으로!
+    @ManyToMany
+    private List<Folder> folderList = new ArrayList<>();
+
     public Product(ProductRequestDto requestDto, Long userId) {
         this.title = requestDto.getTitle();
         this.image = requestDto.getImage();
@@ -52,6 +59,10 @@ public class Product extends Timestamped {
 
     public void updateByItemDto(ItemDto itemDto) {
         this.lprice = itemDto.getLprice();
+    }
+
+    public void addFolder(Folder folder) {
+        this.folderList.add(folder);
     }
 
 }
