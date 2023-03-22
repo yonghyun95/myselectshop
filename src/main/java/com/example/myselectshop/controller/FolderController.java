@@ -20,10 +20,7 @@ public class FolderController {
     private final FolderService folderService;
 
     @PostMapping("/folders")
-    public List<Folder> addFolders(
-            @RequestBody FolderRequestDto folderRequestDto,
-            HttpServletRequest request
-    ) {
+    public List<Folder> addFolders(@RequestBody FolderRequestDto folderRequestDto, HttpServletRequest request) {
 
         List<String> folderNames = folderRequestDto.getFolderNames();
 
@@ -32,9 +29,7 @@ public class FolderController {
 
     // 회원이 등록한 모든 폴더 조회
     @GetMapping("/folders")
-    public List<Folder> getFolders(
-            HttpServletRequest request
-    ) {
+    public List<Folder> getFolders(HttpServletRequest request) {
         return folderService.getFolders(request);
     }
 
